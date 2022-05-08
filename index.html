@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        margin-top: 60px;
+        width: 30%;
+        left: 0;
+        right: 0;
+        margin-left: 500px;
+    }
+
+    input[type=text],
+    input[type=number],
+    select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
+
+<body>
+
+    <h3>Merchant APP(WirePayTest)</h3>
+
+    <div>
+        <p style="text-align: center;"><span id="error" style="color: red; font-weight: 600;"> </span>
+        </p>
+        <p style="text-align: center;"><span id="description"> </span> <span id="amount"
+                style="font-weight: bold;"></span>
+        </p>
+        <form method="POST">
+            <label for="fname">Full Name</label>
+            <input required type="text" id="fullName" name="fullName" placeholder="Your full name..">
+            <label for="email">Email</label>
+            <input required type="text" id="email" name="firstname" placeholder="Your email..">
+            <label for="Amount">Amount</label>
+            <input required type="number" id="fee" name="amount" placeholder="Amount">
+            <label for="phoneNum">Phone Number</label>
+            <input required type="text" id="phoneNumber" name="phoneNumber" placeholder="Your phone number..">
+
+            <input id="pay" type="submit" value="Pay">
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- <script type="module" src="./index.js"></script> --->
+    <!--For Production Use the commented script -->
+    <!-- <script data-main="scripts/app" src="https://myxpresspay.com:6002/xpressPay.min.js"></script>  -->
+    <script data-main="scripts/app" src=""></script>
+
+    <script>
+        $(document).ready(function () {
+            const params = new URLSearchParams(window.location.search);
+            const transactionId = params.get('transactionid'); //From the callback url/current url or any other way you can better implement it;
+            WirePay.VerifyPayment({
+                transactionId: transactionId,
+                mode: "Debug"
+            }).then((response) => {
+                let amount = response?.data?.Amount;
+                if (response.success) {
+                    //Transaction successful at payment gateway
+                    $("#amount").text("You have payed NGN" + amount + " successfully");
+                } else {
+                    //Transaction not successful at payment gateway
+                    if (transactionId)
+                        $("#amount").text("Transaction not successful. Try again later")
+                }
+            });
+
+            $("form").submit(function (e) {
+                e.preventDefault();
+                var email = $("#email").val();
+                var amount = $("#fee").val();
+                var fullName = $("#fullName").val();
+                var phoneNumber = $("#phoneNumber").val();
+                $("#pay").val("Paying..........");
+                WirePay.InitializePayment({
+                    amount: amount + ".00",
+                    mode: "Debug",
+                    amount: amount + ".00",
+                    description: "Order from" + fullName,
+                    currency: 566,
+                    fee: 1,
+                    customer: {
+                        name: fullName,
+                        email: email,
+                        phoneNumber: phoneNumber
+                    },
+                    merchantId: "MER_qZaVZ1645265780823HOaZW",
+                    wayaPublicKey: "WAYAPUBK_TEST_0x3442f06c8fa6454e90c5b1a518758c70",
+
+                    callbackUrl: `${window.location.href}?transactionid=${transactionId}`,
+                }).then(response => {
+                    if (response.success) {
+                        window.location.href = response.data.authorizeUrl
+                    } else {
+                        $("#pay").val("");
+                        $("#amount").text(response.message);
+                    }
+
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>
