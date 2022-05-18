@@ -71,14 +71,14 @@
 
     <!-- <script type="module" src="./index.js"></script> --->
     <!--For Production Use the commented script -->
-    <!-- <script data-main="scripts/app" src="http://wayapayplugin-001-site1.itempurl.com/wirepay.min.js"></script>  -->
+<script data-main="scripts/app" src="http://wayapayplugin-001-site1.itempurl.com/wayapay.min.js"></script>
     <script data-main="scripts/app" src=""></script>
 
     <script>
         $(document).ready(function () {
             const params = new URLSearchParams(window.location.search);
             const transactionId = params.get('transactionid'); //From the callback url/current url or any other way you can better implement it;
-            WirePay.VerifyPayment({
+            WayaPay.VerifyPayment({
                 transactionId: transactionId,
                 mode: "Debug"
             }).then((response) => {
@@ -100,7 +100,7 @@
                 var fullName = $("#fullName").val();
                 var phoneNumber = $("#phoneNumber").val();
                 $("#pay").val("Paying..........");
-                WirePay.InitializePayment({
+                WayaPay.InitializePayment({
                     amount: amount + ".00",
                     mode: "Debug",
                     amount: amount + ".00",

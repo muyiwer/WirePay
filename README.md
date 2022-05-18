@@ -1,9 +1,9 @@
 
-This is a JavaScript library for implementing WirePay payment gateway
+This is a JavaScript library for implementing WayaPay payment gateway
 
 ## Get Started
 
-This Javascript library provides a wrapper to implement WirePay Payment to your application via CDN
+This Javascript library provides a wrapper to implement WayaPay Payment to your application via CDN
 ### Usage
 
 This library can be implemented into your application via CDN using Javascript or JQuery
@@ -139,13 +139,13 @@ To verify payment, you'll need to pass information such as publicKey, transactio
     <!-- <script type="module" src="./index.js"></script> --->
     <!--For Production Use the commented script -->
     <!-- <script data-main="scripts/app" src="https://myWayapay.com:6002/WayaPay.min.js"></script>  -->
-    <script data-main="scripts/app" src="http://wayapayplugin-001-site1.itempurl.com/wirepay.min.js"></script>
+    <script data-main="scripts/app" src="http://wayapayplugin-001-site1.itempurl.com/wayapay.min.js"></script>
 
     <script>
         $(document).ready(function () {
             const params = new URLSearchParams(window.location.search);
             const transactionId = params.get('transactionid'); //From the callback url/current url or any other way you can better implement it;
-            WirePay.VerifyPayment({
+            WayaPay.VerifyPayment({
                 transactionId: transactionId,
                 mode: "Debug"
             }).then((response) => {
@@ -167,7 +167,7 @@ To verify payment, you'll need to pass information such as publicKey, transactio
                 var fullName = $("#fullName").val();
                 var phoneNumber = $("#phoneNumber").val();
                 $("#pay").val("Paying..........");
-                WirePay.InitializePayment({
+                WayaPay.InitializePayment({
                     amount: amount + ".00",
                     mode: "Debug",
                     amount: amount + ".00",
@@ -204,7 +204,7 @@ To verify payment, you'll need to pass information such as publicKey, transactio
 
 
 
-Please checkout [Wirepay Documentation](https://github.com) other ways you can integrate with our plugin
+Please checkout [Wayapay Documentation](https://github.com) other ways you can integrate with our plugin
 ## Deployment
 
 REMEMBER TO CHANGE THE MODE ON REQUEST OF THE FUNCTIONS WHEN DEPLOYING ON A LIVE/PRODUCTION SYSTEM
