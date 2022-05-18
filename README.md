@@ -112,7 +112,7 @@ To verify payment, you'll need to pass information such as publicKey, transactio
 
 <body>
 
-    <h3>Merchant APP(WirePayTest)</h3>
+    <h3>Merchant APP(WayaPayTest)</h3>
 
     <div>
         <p style="text-align: center;"><span id="error" style="color: red; font-weight: 600;"> </span>
@@ -138,7 +138,7 @@ To verify payment, you'll need to pass information such as publicKey, transactio
 
     <!-- <script type="module" src="./index.js"></script> --->
     <!--For Production Use the commented script -->
-    <!-- <script data-main="scripts/app" src="https://myWirepay.com:6002/WirePay.min.js"></script>  -->
+    <!-- <script data-main="scripts/app" src="https://myWayapay.com:6002/WayaPay.min.js"></script>  -->
     <script data-main="scripts/app" src="http://wayapayplugin-001-site1.itempurl.com/wirepay.min.js"></script>
 
     <script>
